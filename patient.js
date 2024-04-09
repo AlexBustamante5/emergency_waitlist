@@ -10,7 +10,6 @@ function startTimer(duration, display) {
         display.textContent = minutes + ":" + seconds;
 
         if (--timer < 0) {
-            timer = duration;
             clearInterval(interval);
             alert("Time is up!");
         }
@@ -19,10 +18,35 @@ function startTimer(duration, display) {
 
 window.onload = function () {
     var submitButton = document.getElementById('submit');
-    var thirtyMinutes = 60 * 30;
+    var injureInput = document.getElementById('injure');
     var display = document.querySelector('#time');
+
     submitButton.addEventListener('click', function (event) {
         event.preventDefault(); // Prevent form submission
-        startTimer(thirtyMinutes, display);
+        var injureValue = parseInt(injureInput.value, 10);
+        var duration;
+        //set the timer according to severity of the injure
+        switch (injureValue) {
+            case 1:
+                duration = 60 * 30; // 30 minutes
+                break;
+            case 2:
+                duration = 60 * 25; // 25 minutes
+                break;
+            case 3:
+                duration = 60 * 20; // 20 minutes
+                break;
+            case 4:
+                duration = 60 * 15; // 15 minutes
+                break;
+            case 5:
+                duration = 60 * 10; // 10 minutes
+                break;
+            default:
+                alert("Invalid injury severity. Please enter a number between 1 and 5.");
+                return;
+        }
+
+        startTimer(duration, display);
     });
 };
