@@ -12,18 +12,19 @@ if (!$conn) {
 $message = '';
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
-    $user = mysqli_real_escape_string($conn, $_POST['username']);
-    $pass = mysqli_real_escape_string($conn, $_POST['password']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
     // Using prepared statements to prevent SQL injection
     $stmt = mysqli_prepare($conn, "SELECT * FROM patient WHERE username = ? AND password = ?");
-    mysqli_stmt_bind_param($stmt, 'ss', $user, $pass);
+    mysqli_stmt_bind_param($stmt, 'ss', $username, $password);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-
+    //check if user and password match an existing row in the db
     if (mysqli_num_rows($result) > 0) {
         $message = "Login successful";
-        header("home.php");
+        //redirect to home page
+        header("Location: home.php");
     } else {
         $message = "Invalid username or password";
     }
