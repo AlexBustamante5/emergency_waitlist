@@ -19,6 +19,7 @@
         <input type="text" id="injure" name="injure" required>
         <input type="submit" value="submit" id="submit">
     </form>
+    <p>Your estimated wait time is: </p>
     <div id="time">30:00</div> 
 </body>
 </html>
