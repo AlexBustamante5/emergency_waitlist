@@ -55,6 +55,12 @@ class PriorityQueue {
     getTimeForPatient() {
         return this.totalTime;
     }
+    updateQueueDisplay() {
+        const queueElement = document.getElementById('queue');
+        queueElement.textContent = this.patients
+            .map(patient => `${patient.name} (Severity: ${patient.severity})`)
+            .join(', ');
+    }
 }
 
 function startTimer(duration, display) {
@@ -93,6 +99,7 @@ window.onload = function () {
             queue.enqueue(patient);
             duration = queue.getTimeForPatient();
             startTimer(duration, display);
+            updateQueueDisplay();
         } else {
             alert("Invalid injury severity. Please enter a number between 1 and 5.");
         }
